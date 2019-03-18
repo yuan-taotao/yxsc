@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>YX商城-{$cateName}</title>
+
+		<link href="__STATIC__index/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css" />
+		<link href="__STATIC__index/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css" />
+
+		<link href="__STATIC__index/basic/css/demo.css" rel="stylesheet" type="text/css" />
+
+		<link href="__STATIC__index/css/seastyle.css" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript" src="__STATIC__index/basic/js/jquery-1.7.min.js"></script>
+		<script type="text/javascript" src="__STATIC__index/js/script.js"></script>
+    	<script src="__STATIC__admin/lib/layui/layui.js" charset="utf-8"></script>
+    	<style>
+			/*分页样式*/  
+			.pagination{text-align:center;margin-top:20px;margin-bottom: 20px;}  
+			.pagination li{margin:0px 10px; border:1px solid #e6e6e6;padding: 3px 8px;display: inline-block;}  
+			.pagination .active{background-color: #46A3FF;color: #fff;}  
+			.pagination .disabled{color:#aaa;} 
+		</style>
+	</head>
+	
+{include file="public/header"}
+<div class="clear"></div>
+			<b class="line"></b>
+           <div class="search">
+			<div class="search-list">
+			<div class="nav-table">
+
+					   <div class="long-title"><span class="all-goods">全部分类</span></div>
+					   <div class="nav-cont">
+							<ul>
+								<li class="index"><a href="#">首页</a></li>
+                                <li class="qc"><a href="#">闪购</a></li>
+                                <li class="qc"><a href="#">限时抢</a></li>
+                                <li class="qc"><a href="#">团购</a></li>
+                                <li class="qc last"><a href="#">大包装</a></li>
+							</ul>
+						    <div class="nav-extra">
+						    	<i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
+						    	<i class="am-icon-angle-right" style="padding-left: 10px;"></i>
+						    </div>
+						</div>
+			</div>
+
+				
+					<div class="am-g am-g-fixed">
+						<div class="am-u-sm-12 am-u-md-12">
+	                  	<div class="theme-popover">
+							<ul class="select">
+								<div class="clear"></div>
+								<li class="select-list">
+									<dl id="select1">
+										<dt class="am-badge am-round">种类</dt>	
+										 <div class="dd-conent">										
+											<dd class="{if $cateId == 0}selected{/if}"><a href="{:url('goods/list',['cate'=>0])}">全部</a></dd>
+											{volist name="parentCates" id="vo"}
+											<dd class="{if condition='($vo.id == $cateId) OR ($vo.id == $cate_pid)'}selected{/if}"><a href="{:url('goods/list',['cate'=>$vo.id])}">{$vo.name}</a></dd>
+											{/volist}
+										 </div>
+						
+									</dl>
+								</li>
+								{if condition="($cate_pid !== 'all')"}
+								<li class="select-list">
+									<dl id="select2">
+										<dt class="am-badge am-round">商品</dt>
+										<div class="dd-conent">
+											{if $childCates}
+											{volist name="childCates" id="vo"}
+											<dd class="{if condition='$vo.id == $cateId'}selected{/if}"><a href="{:url('goods/list',['cate'=>$vo.id])}">{$vo.name}</a></dd>
+											{/volist}
+											{else /}
+											<dd><span>当前分类暂无子分类</span></dd>
+											{/if}
+										</div>
+									</dl>
+								</li>
+					        	{/if}
+							</ul>
+							<div class="clear"></div>
+                        </div>
+							<div class="search-content">
+								<div class="sort">
+									<li class="{if $order == 'default'}first{/if}"><a title="默认" href="{:url('goods/list',['cate'=>$cateId,'order'=>'default'])}">默认排序</a></li>
+									<li class="{if $order == 'sales'}first{/if}"><a title="销量" href="{:url('goods/list',['cate'=>$cateId,'order'=>'sales'])}">销量排序</a></li>
+									<li class="{if $order == 'price'}first{/if}"><a title="价格" href="{:url('goods/list',['cate'=>$cateId,'order'=>'price'])}">价格优先</a></li>
+								</div>
+								<div class="clear"></div>
+
+								<ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
+									{if condition="count($goods)>0"}
+									{volist name="goods" id="vo"}
+									<li>
+										<div class="i-pic limit">
+											<a href="{:url('goods/show',['id'=>$vo.id])}"><img src="{$vo.id|showPrePic}" style="width:218px;height:218px"/>									</a>		
+											<a href="{:url('goods/show',['id'=>$vo.id])}"><p class="title fl">{$vo.name}</p></a>
+											<p class="price fl">
+												<b>¥</b>
+												<strong>{$vo.current_price}</strong>
+											</p>
+											<p class="number fl">
+												销量<span>{$vo.sales}</span>
+											</p>
+										</div>
+									</li>
+									{/volist}
+									{else /}
+									<li>
+										<div class="i-pic limit">
+											当前分类暂无商品
+										</div>
+									</li>
+									{/if}
+								</ul>
+							</div>
+							<div class="search-side">
+
+								<div class="side-title">
+									热卖推荐
+								</div>	
+								{volist name="hotSaleGoods" id="vo"}
+								<li>
+									<div class="i-pic check">
+										<a href="{:url('goods/show',['id'=>$vo.id])}"><img src="{$vo.id|showPrePic}" style="width:218px;height:218px"/></a>
+										<a href="{:url('goods/show',['id'=>$vo.id])}"><p class="check-title" style="font-size:15px;">{$vo.name}</p></a>
+										<p class="price fl">
+											<b>¥</b>
+											<strong>{$vo.current_price}</strong>
+										</p>
+										<p class="number fl">
+											销量<span>{$vo.sales}</span>
+										</p>
+									</div>
+								</li>
+								{/volist}
+							</div>
+							<div class="clear"></div>
+							<!--分页 -->
+							<ul class="am-pagination am-pagination-left">
+								{$goods->appends($params)->render()}
+							</ul>
+						</div>
+					</div>
+
+{include file="public/footer"}

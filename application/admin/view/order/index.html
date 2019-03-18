@@ -1,0 +1,101 @@
+{include file="public/header"}
+  <body>
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">订单</a>
+        <a>
+          <cite>列表</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" action="{:url('order/index')}" method="get">
+          <input class="layui-input" placeholder="开始日" name="start_time" id="start" type="text" value="{if $data}{if isset($data.start_time)}{$data.start_time}{/if}{/if}">
+          <input class="layui-input" placeholder="截止日" name="end_time" id="end" type="text" value="{if $data}{if isset($data.end_time)}{$data.end_time}{/if}{/if}">
+          <div class="layui-input-inline">
+            <select name="order_status">
+              <option value="-1" {if $data}{if isset($data.order_status)}{if $data.order_status eq -1}selected{/if}{/if}{/if}>所有订单</option>
+              <option value="0" {if $data}{if isset($data.order_status)}{if $data.order_status eq 0}selected{/if}{/if}{/if}>待支付(等待支付)</option>
+              <option value="1" {if $data}{if isset($data.order_status)}{if $data.order_status eq 1}selected{/if}{/if}{/if}>已支付(等待发货)</option>
+              <option value="2" {if $data}{if isset($data.order_status)}{if $data.order_status eq 2}selected{/if}{/if}{/if}>已发货(等待收货)</option>
+              <option value="3" {if $data}{if isset($data.order_status)}{if $data.order_status eq 3}selected{/if}{/if}{/if}>已收货(等待评价)</option>
+              <option value="4" {if $data}{if isset($data.order_status)}{if $data.order_status eq 4}selected{/if}{/if}{/if}>已评价(交易完成)</option>
+            </select>
+          </div>
+          <input type="text" name="order_number"  placeholder="请输入订单号" autocomplete="off" class="layui-input" value="{if $data}{if isset($data.order_number)}{$data.order_number}{/if}{/if}">
+          <input type="text" name="name"  placeholder="请输入商品名" autocomplete="off" class="layui-input" value="{if $data}{if isset($data.name)}{$data.name}{/if}{/if}">
+          <input type="text" name="linkman"  placeholder="请输入收货人" autocomplete="off" class="layui-input" value="{if $data}{if isset($data.linkman)}{$data.linkman}{/if}{/if}">
+          <input type="text" name="phone"  placeholder="请输入联系电话" autocomplete="off" class="layui-input" value="{if $data}{if isset($data.phone)}{$data.phone}{/if}{/if}">
+          <button class="layui-btn" type="submit"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+      </div>
+      <xblock>
+        <button class="layui-btn layui-btn-normal all_send">批量发货</button>
+        <span class="x-right" style="line-height:40px">共有数据：{:count($orders)} 条</span>
+      </xblock>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th>
+              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>订单编号</th>
+            <th>收货人</th>
+            <th>商品信息</th>
+            <th>总金额</th>
+            <th>订单状态</th>
+            <th>发货状态</th>
+            <th>下单时间</th>
+            <th >操作</th>
+            </tr>
+        </thead>
+        <tbody>
+          {volist name="orders" id="vo"}
+          <tr>
+            <td>
+              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$vo.id}'><i class="layui-icon">&#xe605;</i></div>
+            </td>
+            <td>{$vo.order_number}</td>
+            <td>{$vo.id|getAddress}</td>
+            <td>
+              <select>
+                {volist name="$vo.id|getGoodsInfos" id="val"}
+                <option>商品名:{$val.goods.name}&nbsp;&nbsp;数量:{$val.count}</option>
+                {/volist}
+              </select>
+            </td>
+            <td>{$vo.price}</td>
+            <td>{$vo.order_status|getOrderStatusWithCSS}</td>
+            <td class="td-status"><a href="{:url('order/order_status',['id'=>$vo.id,'order_status'=>$vo.order_status==1?2:1])}" title="点击修改状态">{$vo.order_status|order_status}</td>
+            <td>{$vo.create_time}</td>
+            <td class="td-manage">
+              <a title="查看"  onclick="x_admin_show('订单编号:{$vo.order_number}','{:url('order/order_info',['id'=>$vo.id])}')" href="javascript:;">
+                <i class="layui-icon">&#xe63c;</i>
+              </a>
+            </td>
+          </tr>
+          {/volist}
+        </tbody>
+      </table>
+      <div class="page">
+        {$orders->appends($params)->render()}
+      </div>
+
+    </div>
+    <script>
+      layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#start' //指定元素
+        });
+        laydate.render({
+          elem: '#end' //指定元素
+        });
+      });
+    </script>
+{include file="public/footer"}

@@ -1,0 +1,44 @@
+
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>404 Not Found</title>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="stylesheet" href="__STATIC__admin/404/styles/normalize.min.css">
+    <link rel="stylesheet" href="__STATIC__admin/404/styles/main.css">
+    </head>
+    <body class="main-background-color">
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="__STATIC__admin/404/http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="background-images-wrapper">
+            <div class="clouds"></div>
+        </div>
+
+        <div class="my-text">
+            <?php switch ($code) {?>
+                <?php case 1:?>
+                <h1 class="main-font main-foreground-color animated"><?php echo(strip_tags($msg));?></h1>
+                <?php break;?>
+                <?php case 0:?>
+                <h1 class="main-font main-foreground-color animated"><?php echo(strip_tags($msg));?></h1>
+                <?php break;?>
+            <?php } ?>
+        </div>
+
+        <div class="elements-wrapper animated">
+            <!-- Error main text -->
+
+            <!-- background image: monster -->
+            <div id="monster">
+                <img id="eye1" class="eye eye-left-animation" src="__STATIC__admin/404/images/eye.png" alt="A monster eye">
+                <img id="eye2" class="eye eye-right-animation" src="__STATIC__admin/404/images/eye.png" alt="A monster eye">
+            </div>
+        </div>
+        <script src="__STATIC__admin/404/scripts/main.js"></script>
+    </body>
+</html>

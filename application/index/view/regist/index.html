@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" href="__STATIC__index/AmazeUI-2.4.2/assets/css/amazeui.min.css" />
+    <link href="__STATIC__index/css/dlstyle.css" rel="stylesheet" type="text/css">
+    <script src="__STATIC__index/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+    <script src="__STATIC__index/AmazeUI-2.4.2/assets/js/amazeui.min.js"></script>
+    <script src="__STATIC__admin/lib/layui/layui.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <div class="login-boxtitle">
+        <a href="/"><img alt="" src="__STATIC__index/images/yxlogo.png" /></a>
+    </div>
+    <div class="res-banner">
+        <div class="res-main">
+            <div class="login-banner-bg"><span></span><img src="__STATIC__index/images/big.jpg" /></div>
+                <div class="login-box">
+                    <div class="am-tabs" id="doc-my-tabs">
+                        <ul class="am-tabs-nav am-nav am-nav-tabs am-nav-justify">
+                            <li class="am-active"><a href="">邮箱注册</a></li>
+                            <li><a href="">手机号注册</a></li>
+                        </ul>
+                        <div class="am-tabs-bd">
+                            <div class="am-tab-panel am-active">
+                                <form method="post" id="email_form">
+                                    <div class="user-email">
+                                        <label for="email"><i class="am-icon-envelope-o"></i></label>
+                                        <input type="text" name="email" placeholder="请输入邮箱账号">
+                                    </div>
+                                    <div class="user-pass">
+                                        <label for="password"><i class="am-icon-lock"></i></label>
+                                        <input type="password" name="password" placeholder="设置密码">
+                                    </div>
+                                    <div class="user-pass">
+                                        <label for="passwordRepeat"><i class="am-icon-lock"></i></label>
+                                        <input type="password" name="repassword" placeholder="确认密码">
+                                    </div>
+                                    <div class="user-pass">
+                                        <label for="passwordRepeat" style="margin-top:2px;"><i class="am-icon-code-fork"></i></label>
+                                        <input type="text" name="captcha" placeholder="验证码" style="width:150px;margin-bottom:30px;">
+                                        <img src="{:captcha_src()}" onclick="this.src=this.src+'?'+Math.random()" alt="captcha" id="captcha"/>
+                                    </div>
+                                </form>
+                                <div class="login-links">
+                                    <label for="reader-me">
+                                        <input id="reader-me" type="checkbox" name="check"> 点击表示您同意商城《服务协议》
+                                    </label>
+                                    <label for="reader-me">
+                                        <a href="{:url('login/index')}" style="color:red;">已有账号？立即登录</a>
+                                    </label>
+                                </div>
+                                <div class="am-cf">
+                                    <span class="am-btn am-btn-primary am-btn-sm am-fl email_regist">注册</span>
+                                </div>
+                            </div>
+                            <div class="am-tab-panel">
+                                <form method="post" id="phone_form">
+                                    <div class="user-phone">
+                                        <label for="phone"><i class="am-icon-mobile-phone am-icon-md"></i></label>
+                                        <input type="text" name="phone" placeholder="请输入手机号" autocomplete="on">
+                                    </div>
+                                    <div class="verification">
+                                        <label for="code"><i class="am-icon-code-fork"></i></label>
+                                        <input type="text" name="msgcode" placeholder="请输入验证码" style="width:200px;">
+                                        <button type="button" class="getMsgCode" style="width:70px;height:35px;background:pink;">获取</button>
+                                    </div>
+                                    <div class="user-pass">
+                                        <label for="password"><i class="am-icon-lock"></i></label>
+                                        <input type="password" name="password" placeholder="设置密码">
+                                    </div>
+                                    <div class="user-pass">
+                                        <label for="passwordRepeat"><i class="am-icon-lock"></i></label>
+                                        <input type="password" name="repassword" placeholder="确认密码">
+                                    </div>
+                                </form>
+                                <div class="login-links">
+                                    <label for="reader-me">
+                                        <input id="reader-me" type="checkbox" name="phone_check"> 点击表示您同意商城《服务协议》
+                                    </label>
+                                    <label for="reader-me">
+                                        <a href="{:url('login/index')}" style="color:red;">已有账号？立即登录</a>
+                                    </label>
+                                </div>
+                                <div class="am-cf">
+                                    <span class="am-btn am-btn-primary am-btn-sm am-fl phone_regist" disabled>注册</span>
+                                </div>
+                                <hr>
+                            </div>
+                            <script>
+                            $(function() {
+                                $('#doc-my-tabs').tabs();
+                            })
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer ">
+                <div class="footer-hd ">
+                    <p>
+                        <a href="# ">商城首页</a>
+                        <b>|</b>
+                        <a href="# ">支付宝</a>
+                        <b>|</b>
+                        <a href="# ">物流</a>
+                    </p>
+                </div>
+                <div class="footer-bd ">
+                    <p>
+                        <a href="# ">合作伙伴</a>
+                        <a href="# ">联系我们</a>
+                        <a href="# ">网站地图</a>
+                    </p>
+                </div>
+            </div>
+            <script type="text/javascript">
+                var PARAM = {
+                    'email_url' : "{:url('regist/regist')}",
+                    'lastUrl' : "{$lastUrl}",
+                    'captcha_src' : "{:captcha_src()}",
+                    'getmsg_url' : "{:url('regist/getMsg')}",
+                    'phone_url' : "{:url('regist/phone_regist')}",
+                };
+            </script>
+            <script type="text/javascript" src="__STATIC__index/main.js"></script>
+
+</body>
+</html>

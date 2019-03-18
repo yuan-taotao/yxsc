@@ -1,0 +1,63 @@
+{include file="public/header"}
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">分类</a>
+        <a>
+          <cite>列表</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <xblock>
+        <span class="x-right" style="line-height:40px">共有数据：{$count}条</span>
+      </xblock>
+      <table class="layui-table layui-form">
+        <thead>
+          <tr>
+            <th width="70">ID</th>
+            <th>栏目名</th>
+            <th width="50">排序</th>
+            <th width="50">状态</th>
+            <th width="220">操作</th>
+        </thead>
+        <tbody class="x-cate">
+          {volist name="cates" id="vo"}
+          {if $vo.pid == 0}
+          <tr cate-id='{$vo.id}' fid='{$vo.pid}'>
+            <td>{$vo.id}</td>
+            <td>
+              <i class="layui-icon x-show" status='true'>&#xe623;</i>
+              {$vo.name}
+            </td>
+            <td><input type="text" class="layui-input x-sort" name="listorder" value="{$vo.listorder}" data-id="{$vo.id}"></td>
+            <td><a href="{:url('category/status',['id'=>$vo.id,'status'=>$vo.status==1?0:1])}" title="点击修改状态">{$vo.status|status}</a></td>
+            <td class="td-manage">
+              <button class="layui-btn layui-btn layui-btn-xs"  onclick="x_admin_show('编辑','{:url('category/edit',['id'=>$vo.id])}')" ><i class="layui-icon">&#xe642;</i>编辑</button>
+              <button class="layui-btn-danger layui-btn layui-btn-xs"  onclick="member_del('{:url('category/delete')}',{$vo.id})" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>
+            </td>
+          </tr>
+          {volist name="cates" id="val"}
+          {if $val.pid == $vo.id}
+          <tr cate-id='{$val.id}' fid='{$val.pid}'>
+            <td>{$val.id}</td>
+            <td>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              --|{$val.name}
+            </td>
+            <td><input type="text" class="layui-input x-sort" name="listorder" value="{$val.listorder}" data-id="{$val.id}"></td>
+            <td><a href="{:url('category/status',['id'=>$val.id,'status'=>$val.status==1?0:1])}" title="点击修改状态">{$val.status|status}</a></td>
+            <td class="td-manage">
+              <button class="layui-btn layui-btn layui-btn-xs"  onclick="x_admin_show('编辑','{:url('category/edit',['id'=>$val.id])}')" ><i class="layui-icon">&#xe642;</i>编辑</button>
+              <button class="layui-btn-danger layui-btn layui-btn-xs"  onclick="member_del('{:url('category/delete')}',{$val.id})" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>
+            </td>
+          </tr>
+          {/if}
+          {/volist}
+          {/if}
+          {/volist}
+        </tbody>
+      </table>
+    </div>
+{include file="public/footer"}

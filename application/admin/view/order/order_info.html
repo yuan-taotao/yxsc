@@ -1,0 +1,94 @@
+{include file="public/header"}
+  <body>
+    <div class="x-body">
+        <form class="layui-form">
+          <div class="layui-form-item layui-form-text">
+              <label for="desc" class="layui-form-label">
+                  商品信息
+              </label>
+              <div class="layui-input-block">
+                  <table class="layui-table">
+                    <tbody>
+                      <tr>
+                        <th>图片</th>
+                        <th>商品名</th>
+                        <th>单价</th>
+                        <th>数量</th>
+                      </tr>
+                      {volist name="$order.id|getGoodsInfos" id="vo"}
+                      <tr>
+                        <td><img src="{$vo.goods.pic}" style="height:50px;"></td>
+                        <td>{$vo.goods.name}</td>
+                        <td>{$vo.goods.price}</td>
+                        <td>{$vo.count}</td>
+                      </tr>
+                      {/volist}
+                    </tbody>
+                  </table>
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+                  支付价格
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" class="layui-input" value="{$order.price}">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+                  订单状态
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" class="layui-input" value="{$order.order_status|getOrderStatus}">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+                  收货人
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" class="layui-input" value="{$address.linkman}">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+                  联系电话
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" class="layui-input" value="{$address.phone}">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+                  地址信息
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" class="layui-input" value="{$address.province|getCityName}">
+              </div>
+               <div class="layui-input-inline">
+                  <input type="text" class="layui-input" value="{$address.city|getCityName}">
+              </div>
+               <div class="layui-input-inline">
+                  <input type="text" class="layui-input" value="{$address.area|getCityName}">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+                  详细地址
+              </label>
+              <div class="layui-input-inline">
+                  <textarea class="layui-text" cols="30" rows="3">{$address.addinfo}</textarea>
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+                  用户备注
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" class="layui-input" value="{$order.note}">
+              </div>
+          </div>
+      </form>
+    </div>
+    {include file="public/footer"}

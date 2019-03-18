@@ -1,0 +1,66 @@
+{include file="public/header"}
+  <body>
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">权限</a>
+        <a>
+          <cite>列表</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so layui-form-pane">
+          <div class="layui-input-inline">
+            <input type="text" name="controller" placeholder="控制器" class="layui-input">
+          </div>
+          <div class="layui-input-inline">
+            <input type="text" name="method" placeholder="方法" class="layui-input">
+          </div>
+          <input class="layui-input" placeholder="权限名" name="name" >
+          <button class="layui-btn auth_add" type="button"><i class="layui-icon"></i>增加</button>
+        </form>
+      </div>
+      <xblock>
+        <button class="layui-btn layui-btn-danger"><i class="layui-icon"></i>批量删除</button>
+      </xblock>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th>
+              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>ID</th>
+            <th>控制器</th>
+            <th>方法</th>
+            <th>规则</th>
+            <th>权限名称</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+          {volist name="auths" id="vo"}
+          <tr>
+            <td>
+              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$vo.id}'><i class="layui-icon">&#xe605;</i></div>
+            </td>
+            <td>{$vo.id}</td>
+            <td>{$vo.controller}</td>
+            <td>{$vo.method}</td>
+            <td>{$vo.rule}</td>
+            <td>{$vo.name}</td>
+            <td class="td-manage">
+              <a title="删除" onclick="member_del('{:url('auth/delete')}',{$vo.id})" href="javascript:;">
+                <i class="layui-icon">&#xe640;</i>
+              </a>
+            </td>
+          </tr>
+          {/volist}
+        </tbody>
+      </table>
+      <div class="page">
+        {$auths->render()}        
+      </div>
+    </div>
+    {include file="public/footer"}

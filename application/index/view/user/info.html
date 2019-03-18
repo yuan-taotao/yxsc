@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+
+		<title>个人资料</title>
+
+		<link href="__STATIC__index/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+		<link href="__STATIC__index/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+
+		<link href="__STATIC__index/css/personal.css" rel="stylesheet" type="text/css">
+		<link href="__STATIC__index/css/infstyle.css" rel="stylesheet" type="text/css">
+		<link href="__STATIC__admin/lib/layui/css/layui.css" rel="stylesheet" type="text/css">
+		<script src="__STATIC__index/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+		<script src="__STATIC__index/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+    	<script src="__STATIC__admin/lib/layui/layui.js" charset="utf-8"></script>
+	</head>
+
+	<body>
+				{include file="public/header"}
+            <div class="nav-table">
+					   <div class="long-title"><span class="all-goods">全部分类</span></div>
+					   <div class="nav-cont">
+							<ul>
+								<li class="index"><a href="#">首页</a></li>
+                                <li class="qc"><a href="#">闪购</a></li>
+                                <li class="qc"><a href="#">限时抢</a></li>
+                                <li class="qc"><a href="#">团购</a></li>
+                                <li class="qc last"><a href="#">大包装</a></li>
+							</ul>
+						    <div class="nav-extra">
+						    	<i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
+						    	<i class="am-icon-angle-right" style="padding-left: 10px;"></i>
+						    </div>
+						</div>
+			</div>
+			<b class="line"></b>
+		<div class="center">
+			<div class="col-main">
+				<div class="main-wrap">
+
+					<div class="user-info">
+						<!--标题 -->
+						<div class="am-cf am-padding">
+							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">个人资料</strong> / <small>Personal&nbsp;information</small></div>
+						</div>
+						<hr/>
+
+						<!--头像 -->
+						<div class="user-infoPic">
+
+							<div class="filePic" id="user_pic">
+								<img class="am-circle am-img-thumbnail user_image" src="{$userinfo.pic}" alt="" />
+							</div>
+
+							<p class="am-form-help">头像</p>
+
+							<div class="info-m">
+								<div><i>{$userinfo.nickname}</i></div>
+								<div class="vip">
+                                      <span></span><a href="#">{$user.user_level|user_level}</a>
+								</div>
+							</div>
+						</div>
+
+						<!--个人信息 -->
+						<div class="info-main">
+							<form class="am-form am-form-horizontal">
+								<input type="hidden" name="pic">
+								<div class="am-form-group">
+									<label for="user-name2" class="am-form-label">昵称</label>
+									<div class="am-form-content">
+										<input type="text" id="user-name2" value="{$userinfo.nickname}" name="nickname">
+                                          <small>昵称长度不能超过50个字符</small>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label for="user-name" class="am-form-label">真实姓名</label>
+									<div class="am-form-content">
+										<input type="text" id="user-name2" name="realname" value="{$userinfo.realname}">
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label class="am-form-label">性别</label>
+									<div class="am-form-content sex">
+										<label class="am-radio-inline">
+											<input type="radio" name="sex" value="1" data-am-ucheck {if $userinfo.sex == 1}checked{/if}> 男
+										</label>
+										<label class="am-radio-inline">
+											<input type="radio" name="sex" value="2" data-am-ucheck {if $userinfo.sex == 2}checked{/if}> 女
+										</label>
+										<label class="am-radio-inline">
+											<input type="radio" name="sex" value="0" data-am-ucheck {if $userinfo.sex == 0}checked{/if}> 保密
+										</label>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label for="user-birth" class="am-form-label">生日</label>
+									<div class="am-form-content birth">
+										<input type="text" name="birthday" id="birth_input" value="{$userinfo.birthday}">
+									</div>
+							
+								</div>
+								<div class="am-form-group">
+									<label for="user-phone" class="am-form-label">个性签名</label>
+									<div class="am-form-content">
+										<textarea name="desc">{$userinfo.desc}</textarea>
+									</div>
+								</div>
+								<div class="info-btn user_info_update">
+									<div class="am-btn am-btn-danger">保存修改</div>
+								</div>
+							</form>
+						</div>
+
+					</div>
+
+				</div>
+				<!--底部-->
+				<div class="footer">
+					<div class="footer-hd">
+						<p>
+							<a href="/">商城首页</a>
+							<b>|</b>
+							<a href="#">支付宝</a>
+							<b>|</b>
+							<a href="#">物流</a>
+						</p>
+					</div>
+					<div class="footer-bd">
+						<p>
+							<a href="#">合作伙伴</a>
+							<a href="#">联系我们</a>
+							<a href="#">网站地图</a>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			{include file="public/user_nav"}
+		</div>
+		<script type="text/javascript">
+			var PARAM = {
+				'update_url' : "{:url('user/info_update')}",
+			};
+			layui.use(['upload','laydate'], function(){
+			  var upload = layui.upload;
+			  var laydate = layui.laydate;
+
+			  //执行一个laydate实例
+			  laydate.render({
+			    elem: '#birth_input' //指定元素
+			  });
+			  //执行实例
+			  var uploadInst = upload.render({
+			    elem: '#user_pic' //绑定元素
+			    ,url: "{:url('api/Picture/userUpload')}" //上传接口
+			    ,accept: 'images'
+			    ,size: 2048
+			    ,done: function(res){
+			      //上传完毕回调
+			      if(res.status == 1){
+			      	$('.user_image').attr('src',res.msg);
+			      	$('input[name=pic]').val(res.msg);
+			      }
+			    }
+			    ,error: function(){
+			      //请求异常回调
+			      layer.msg('头像更换失败',{icon:0});
+			    }
+			  });
+			});
+		</script>
+		<script type="text/javascript" src="__STATIC__index/main.js"></script>
+	</body>
+
+</html>

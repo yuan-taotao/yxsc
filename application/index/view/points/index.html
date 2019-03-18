@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+
+		<title>积分明细</title>
+
+		<link href="__STATIC__index/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+		<link href="__STATIC__index/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+		<link href="__STATIC__index/css/personal.css" rel="stylesheet" type="text/css">
+		<link href="__STATIC__index/css/point.css" rel="stylesheet" type="text/css">
+		<script src="__STATIC__index/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+		<script src="__STATIC__index/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+    	<script src="__STATIC__admin/lib/layui/layui.js" charset="utf-8"></script>
+    	<style>
+			/*分页样式*/  
+			.pagination{text-align:center;margin-top:20px;margin-bottom: 20px;}  
+			.pagination li{margin:0px 10px; border:1px solid #e6e6e6;padding: 3px 8px;display: inline-block;}  
+			.pagination .active{background-color: #46A3FF;color: #fff;}  
+			.pagination .disabled{color:#aaa;} 
+		</style>
+	</head>
+
+	<body>
+		{include file="public/header"}
+
+		<div class="nav-table">
+			<div class="long-title"><span class="all-goods">全部分类</span></div>
+			<div class="nav-cont">
+				<ul>
+					<li class="index"><a href="#">首页</a></li>
+					<li class="qc"><a href="#">闪购</a></li>
+					<li class="qc"><a href="#">限时抢</a></li>
+					<li class="qc"><a href="#">团购</a></li>
+					<li class="qc last"><a href="#">大包装</a></li>
+				</ul>
+				<div class="nav-extra">
+					<i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
+					<i class="am-icon-angle-right" style="padding-left: 10px;"></i>
+				</div>
+			</div>
+		</div>
+		<b class="line"></b>
+
+		<div class="center">
+			<div class="col-main">
+				<div class="main-wrap">
+					<div class="points">
+						<!--标题 -->
+						<div class="am-cf am-padding">
+							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">我的积分</strong> / <small>My&nbsp;Point</small></div>
+						</div>
+						<hr/>
+						<div class="pointsTitle">
+						   <div class="usable">可用积分<span>{$user->user_points}</span></div>
+						   <div class="pointshop"><a href="#"><i><img src="__STATIC__index/images/u5.png" /></i>{$user->user_level|getUserLevel}</a></div>
+						   <div class="signIn sig_btn" style="cursor:pointer;"><a><i class="am-icon-calendar" {if $isSig}style="color:#ddd;"{/if}></i><em>+80</em>{if $isSig}今日已签到{else /}每日签到{/if}</a></div>
+						</div>
+						<div class="pointlist am-tabs" data-am-tabs>
+							<ul class="am-avg-sm-3 am-tabs-nav am-nav am-nav-tabs">
+								<li class="am-active"><a href="#tab1">全部</a></li>
+							</ul>
+							<div class="am-tabs-bd">
+								<div class="am-tab-panel am-fade am-in am-active" id="tab1">
+									<table>
+										<b></b>
+										<thead>
+											<tr>												
+												<th class="th1">积分详情</th>
+												<th class="th2">积分变动</th>
+												<th class="th3">日期</th>
+											</tr>
+										</thead>										
+										<tbody>
+											{volist name="points" id="vo"}
+											<tr>
+												<td class="pointType">{$vo.content}</td>
+												<td class="pointNum">+{$vo.score}</td>
+												<td class="pointTime">{$vo.create_time}</td>
+											</tr>
+											{/volist}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{$points->render()}
+
+				<!--底部-->
+				<div class="footer">
+					<div class="footer-hd">
+						<p>
+							<a href="#">商城首页</a>
+							<b>|</b>
+							<a href="#">支付宝</a>
+							<b>|</b>
+							<a href="#">物流</a>
+						</p>
+					</div>
+					<div class="footer-bd">
+						<p>
+							<a href="#">合作伙伴</a>
+							<a href="#">联系我们</a>
+							<a href="#">网站地图</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			{include file="public/user_nav"}
+		</div>
+    <script type="text/javascript" src="__STATIC__index/main.js"></script>
+	</body>
+
+</html>

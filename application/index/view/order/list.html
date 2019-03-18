@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <title>订单管理</title>
+    <link href="__STATIC__index/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__index/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__index/css/personal.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__index/css/orstyle.css" rel="stylesheet" type="text/css">
+    <script src="__STATIC__index/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+    <script src="__STATIC__index/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+    <script src="__STATIC__admin/lib/layui/layui.js" charset="utf-8"></script>
+</head>
+
+<body>
+    {include file="public/header"}
+    <div class="nav-table">
+        <div class="long-title"><span class="all-goods">全部分类</span></div>
+        <div class="nav-cont">
+            <ul>
+                <li class="index"><a href="#">首页</a></li>
+                <li class="qc"><a href="#">闪购</a></li>
+                <li class="qc"><a href="#">限时抢</a></li>
+                <li class="qc"><a href="#">团购</a></li>
+                <li class="qc last"><a href="#">大包装</a></li>
+            </ul>
+            <div class="nav-extra">
+                <i class="am-icon-user-secret am-icon-md nav-user"></i><b></b>我的福利
+                <i class="am-icon-angle-right" style="padding-left: 10px;"></i>
+            </div>
+        </div>
+    </div>
+    <b class="line"></b>
+    <div class="center">
+        <div class="col-main">
+            <div class="main-wrap">
+                <div class="user-order">
+                    <!--标题 -->
+                    <div class="am-cf am-padding">
+                        <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">订单管理</strong> / <small>Order</small></div>
+                    </div>
+                    <hr />
+                    <div class="am-tabs am-tabs-d2 am-margin" data-am-tabs>
+                        <ul class="am-avg-sm-5 am-tabs-nav am-nav am-nav-tabs">
+                            <li class="am-active"><a href="#tab1">所有订单</a></li>
+                            <li><a href="#tab2">待付款</a></li>
+                            <li><a href="#tab3">待发货</a></li>
+                            <li><a href="#tab4">待收货</a></li>
+                            <li><a href="#tab5">待评价</a></li>
+                        </ul>
+                        <div class="am-tabs-bd">
+                            <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                                <div class="order-top">
+                                    <div class="th th-item">
+                                        <td class="td-inner">商品</td>
+                                    </div>
+                                    <div class="th th-price">
+                                        <td class="td-inner">单价</td>
+                                    </div>
+                                    <div class="th th-number">
+                                        <td class="td-inner">数量</td>
+                                    </div>
+                                    <div class="th th-operation">
+                                        <td class="td-inner">商品操作</td>
+                                    </div>
+                                    <div class="th th-amount">
+                                        <td class="td-inner">合计</td>
+                                    </div>
+                                    <div class="th th-status">
+                                        <td class="td-inner">交易状态</td>
+                                    </div>
+                                    <div class="th th-change">
+                                        <td class="td-inner">交易操作</td>
+                                    </div>
+                                </div>
+                                <div class="order-main">
+                                    <div class="order-list">
+                                        <!--所有订单-->
+                                        {volist name="orders" id="vo"}
+                                        <div class="order-status5">
+                                            <div class="order-title">
+                                                <div class="dd-num">订单编号：<a href="javascript:;">{$vo.order_number}</a></div>
+                                                <span>创建时间：{$vo.create_time}</span>
+                                            </div>
+                                            <div class="order-content">
+                                                <div class="order-left">
+                                                	{volist name="$vo.id|getGoodsInfos" id="val"}
+                                                    <ul class="item-list">
+                                                        <li class="td td-item">
+                                                            <div class="item-pic">
+                                                                <a href="{:url('goods/show',['id'=>$val.goods.goods_id])}" class="J_MakePoint">
+																		<img src="{$val.goods.pic}" class="itempic J_ItemImg" style="width:78px;height:78px;">
+																	</a>
+                                                            </div>
+                                                            <div class="item-info">
+                                                                <div class="item-basic-info">
+                                                                    <a href="{:url('goods/show',['id'=>$val.goods.goods_id])}">
+																			<p>{$val.goods.name}</p>
+																			<p class="info-little">颜色：12#川南玛瑙
+																				<br/>包装：裸装 </p>
+																		</a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-price">
+                                                            <div class="item-price">
+                                                                {$val.goods.price}
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-number">
+                                                            <div class="item-number">
+                                                                <span>×</span>{$val.count}
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-operation">
+                                                            <div class="item-operation">
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    {/volist}
+                                                </div>
+                                                <div class="order-right">
+                                                    <li class="td td-amount">
+                                                        <div class="item-amount">
+                                                            合计：{$vo.price}
+                                                        </div>
+                                                    </li>
+                                                    <div class="move-right">
+                                                        <li class="td td-status">
+                                                            <div class="item-status">
+                                                                <p class="Mystatus">{$vo.order_status|getOrderStatus}</p>
+                                                                <p class="order-info"><a href="{:url('order/order_info',['id'=>$vo.id])}">订单详情</a></p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-change">
+                                                            <a>
+																{$vo.order_status|getOrderAction}
+                                                                <input class="vo-id" type="hidden" value="{$vo.id}">
+
+															</a>
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/volist}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="am-tab-panel am-fade" id="tab2">
+                                <div class="order-top">
+                                    <div class="th th-item">
+                                        <td class="td-inner">商品</td>
+                                    </div>
+                                    <div class="th th-price">
+                                        <td class="td-inner">单价</td>
+                                    </div>
+                                    <div class="th th-number">
+                                        <td class="td-inner">数量</td>
+                                    </div>
+                                    <div class="th th-operation">
+                                        <td class="td-inner">商品操作</td>
+                                    </div>
+                                    <div class="th th-amount">
+                                        <td class="td-inner">合计</td>
+                                    </div>
+                                    <div class="th th-status">
+                                        <td class="td-inner">交易状态</td>
+                                    </div>
+                                    <div class="th th-change">
+                                        <td class="td-inner">交易操作</td>
+                                    </div>
+                                </div>
+                                <div class="order-main">
+                                    <div class="order-list">
+                                    	<!-- 等待付款 -->
+                                    	{volist name="orders" id="vo"}
+                                    	{if $vo.order_status == 0}
+                                        <div class="order-status1">
+                                            <div class="order-title">
+                                                <div class="dd-num">订单编号：<a href="javascript:;">{$vo.order_number}</a></div>
+                                                <span>创建时间：{$vo.create_time}</span>
+                                            </div>
+                                            <div class="order-content">
+                                                <div class="order-left">
+                                                	{volist name="$vo.id|getGoodsInfos" id="val"}
+                                                    <ul class="item-list">
+                                                        <li class="td td-item">
+                                                            <div class="item-pic">
+                                                                <a href="{:url('goods/show',['id'=>$val.goods.goods_id])}" class="J_MakePoint">
+																		<img src="{$val.goods.pic}" class="itempic J_ItemImg" style="width:78px;height:78px;">
+																	</a>
+                                                            </div>
+                                                            <div class="item-info">
+                                                                <div class="item-basic-info">
+                                                                    <a href="{:url('goods/show',['id'=>$val.goods.goods_id])}">
+																			<p>{$val.goods.name}</p>
+																			<p class="info-little">颜色：12#川南玛瑙
+																				<br/>包装：裸装 </p>
+																		</a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-price">
+                                                            <div class="item-price">
+                                                                {$val.goods.price}
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-number">
+                                                            <div class="item-number">
+                                                                <span>×</span>{$val.count}
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-operation">
+                                                            <div class="item-operation">
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    {/volist}
+                                                </div>
+                                                <div class="order-right">
+                                                    <li class="td td-amount">
+                                                        <div class="item-amount">
+                                                            合计：{$vo.price}
+                                                        </div>
+                                                    </li>
+                                                    <div class="move-right">
+                                                        <li class="td td-status">
+                                                            <div class="item-status">
+                                                                <p class="Mystatus">{$vo.order_status|getOrderStatus}</p>
+                                                                <p class="order-info"><a href="{:url('order/order_info',['id'=>$vo.id])}">订单详情</a></p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-change">
+                                                            <a>
+                                                                {$vo.order_status|getOrderAction}
+                                                                <input class="vo-id" type="hidden" value="{$vo.id}">
+
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/if}
+                                        {/volist}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="am-tab-panel am-fade" id="tab3">
+                                <div class="order-top">
+                                    <div class="th th-item">
+                                        <td class="td-inner">商品</td>
+                                    </div>
+                                    <div class="th th-price">
+                                        <td class="td-inner">单价</td>
+                                    </div>
+                                    <div class="th th-number">
+                                        <td class="td-inner">数量</td>
+                                    </div>
+                                    <div class="th th-operation">
+                                        <td class="td-inner">商品操作</td>
+                                    </div>
+                                    <div class="th th-amount">
+                                        <td class="td-inner">合计</td>
+                                    </div>
+                                    <div class="th th-status">
+                                        <td class="td-inner">交易状态</td>
+                                    </div>
+                                    <div class="th th-change">
+                                        <td class="td-inner">交易操作</td>
+                                    </div>
+                                </div>
+                                <div class="order-main">
+                                    <div class="order-list">
+                                    	<!-- 待发货的商品 -->
+                                    	{volist name="orders" id="vo"}
+                                    	{if $vo.order_status == 1}
+                                        <div class="order-status2">
+                                            <div class="order-title">
+                                                <div class="dd-num">订单编号：<a href="javascript:;">{$vo.order_number}</a></div>
+                                                <span>创建时间：{$vo.create_time}</span>
+                                            </div>
+                                            <div class="order-content">
+                                                <div class="order-left">
+                                                	{volist name="$vo.id|getGoodsInfos" id="val"}
+                                                    <ul class="item-list">
+                                                        <li class="td td-item">
+                                                            <div class="item-pic">
+                                                                <a href="{:url('goods/show',['id'=>$val.goods.goods_id])}" class="J_MakePoint">
+																		<img src="{$val.goods.pic}" class="itempic J_ItemImg" style="width:78px;height:78px;">
+																	</a>
+                                                            </div>
+                                                            <div class="item-info">
+                                                                <div class="item-basic-info">
+                                                                    <a href="{:url('goods/show',['id'=>$val.goods.goods_id])}">
+																			<p>{$val.goods.name}</p>
+																			<p class="info-little">颜色：12#川南玛瑙
+																				<br/>包装：裸装 </p>
+																		</a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-price">
+                                                            <div class="item-price">
+                                                                {$val.goods.price}
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-number">
+                                                            <div class="item-number">
+                                                                <span>×</span>{$val.count}
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-operation">
+                                                            <div class="item-operation">
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    {/volist}
+                                                </div>
+                                                <div class="order-right">
+                                                    <li class="td td-amount">
+                                                        <div class="item-amount">
+                                                            合计：{$vo.price}
+                                                        </div>
+                                                    </li>
+                                                    <div class="move-right">
+                                                        <li class="td td-status">
+                                                            <div class="item-status">
+                                                                <p class="Mystatus">{$vo.order_status|getOrderStatus}</p>
+                                                                <p class="order-info"><a href="{:url('order/order_info',['id'=>$vo.id])}">订单详情</a></p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-change">
+                                                            <a>
+                                                                {$vo.order_status|getOrderAction}
+                                                                <input class="vo-id" type="hidden" value="{$vo.id}">
+
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/if}
+                                    	{/volist}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="am-tab-panel am-fade" id="tab4">
+                                <div class="order-top">
+                                    <div class="th th-item">
+                                        <td class="td-inner">商品</td>
+                                    </div>
+                                    <div class="th th-price">
+                                        <td class="td-inner">单价</td>
+                                    </div>
+                                    <div class="th th-number">
+                                        <td class="td-inner">数量</td>
+                                    </div>
+                                    <div class="th th-operation">
+                                        <td class="td-inner">商品操作</td>
+                                    </div>
+                                    <div class="th th-amount">
+                                        <td class="td-inner">合计</td>
+                                    </div>
+                                    <div class="th th-status">
+                                        <td class="td-inner">交易状态</td>
+                                    </div>
+                                    <div class="th th-change">
+                                        <td class="td-inner">交易操作</td>
+                                    </div>
+                                </div>
+                                <div class="order-main">
+                                    <div class="order-list">
+                                		<!-- 待收货 -->
+                                		{volist name="orders" id="vo"}
+                                		{if $vo.order_status == 2}
+                                        <div class="order-status3">
+                                            <div class="order-title">
+                                                <div class="dd-num">订单编号：<a href="javascript:;">{$vo.order_number}</a></div>
+                                                <span>创建时间：{$vo.create_time}</span>
+                                            </div>
+                                            <div class="order-content">
+                                                <div class="order-left">
+                                                	{volist name="$vo.id|getGoodsInfos" id="val"}
+                                                    <ul class="item-list">
+                                                        <li class="td td-item">
+                                                            <div class="item-pic">
+                                                                <a href="{:url('goods/show',['id'=>$val.goods.goods_id])}" class="J_MakePoint">
+																		<img src="{$val.goods.pic}" class="itempic J_ItemImg" style="width:78px;height:78px;">
+																	</a>
+                                                            </div>
+                                                            <div class="item-info">
+                                                                <div class="item-basic-info">
+                                                                    <a href="{:url('goods/show',['id'=>$val.goods.goods_id])}">
+																			<p>{$val.goods.name}</p>
+																			<p class="info-little">颜色：12#川南玛瑙
+																				<br/>包装：裸装 </p>
+																		</a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-price">
+                                                            <div class="item-price">
+                                                                {$val.goods.price}
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-number">
+                                                            <div class="item-number">
+                                                                <span>×</span>{$val.count}
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-operation">
+                                                            <div class="item-operation">
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    {/volist}
+                                                </div>
+                                                <div class="order-right">
+                                                    <li class="td td-amount">
+                                                        <div class="item-amount">
+                                                            合计：{$vo.price}
+                                                        </div>
+                                                    </li>
+                                                    <div class="move-right">
+                                                        <li class="td td-status">
+                                                            <div class="item-status">
+                                                                <p class="Mystatus">{$vo.order_status|getOrderStatus}</p>
+                                                                <p class="order-info"><a href="{:url('order/order_info',['id'=>$vo.id])}">订单详情</a></p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-change">
+                                                            <a>
+                                                                {$vo.order_status|getOrderAction}
+                                                                <input class="vo-id" type="hidden" value="{$vo.id}">
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/if}
+                                        {/volist}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="am-tab-panel am-fade" id="tab5">
+                                <div class="order-top">
+                                    <div class="th th-item">
+                                        <td class="td-inner">商品</td>
+                                    </div>
+                                    <div class="th th-price">
+                                        <td class="td-inner">单价</td>
+                                    </div>
+                                    <div class="th th-number">
+                                        <td class="td-inner">数量</td>
+                                    </div>
+                                    <div class="th th-operation">
+                                        <td class="td-inner">商品操作</td>
+                                    </div>
+                                    <div class="th th-amount">
+                                        <td class="td-inner">合计</td>
+                                    </div>
+                                    <div class="th th-status">
+                                        <td class="td-inner">交易状态</td>
+                                    </div>
+                                    <div class="th th-change">
+                                        <td class="td-inner">交易操作</td>
+                                    </div>
+                                </div>
+                                <div class="order-main">
+                                    <div class="order-list">
+                                        <!--待评价的订单	-->
+                                        {volist name="orders" id="vo"}
+                                        {if $vo.order_status == 3}
+                                        <div class="order-status4">
+                                            <div class="order-title">
+                                                <div class="dd-num">订单编号：<a href="javascript:;">{$vo.order_number}</a></div>
+                                                <span>创建时间：{$vo.create_time}</span>
+                                            </div>
+                                            <div class="order-content">
+                                                <div class="order-left">
+                                                	{volist name="$vo.id|getGoodsInfos" id="val"}
+                                                    <ul class="item-list">
+                                                        <li class="td td-item">
+                                                            <div class="item-pic">
+                                                                <a href="{:url('goods/show',['id'=>$val.goods.goods_id])}" class="J_MakePoint">
+																		<img src="{$val.goods.pic}" class="itempic J_ItemImg" style="width:78px;height:78px;">
+																	</a>
+                                                            </div>
+                                                            <div class="item-info">
+                                                                <div class="item-basic-info">
+                                                                    <a href="{:url('goods/show',['id'=>$val.goods.goods_id])}">
+																			<p>{$val.goods.name}</p>
+																			<p class="info-little">颜色：12#川南玛瑙
+																				<br/>包装：裸装 </p>
+																		</a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-price">
+                                                            <div class="item-price">
+                                                                {$val.goods.price}
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-number">
+                                                            <div class="item-number">
+                                                                <span>×</span>{$val.count}
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-operation">
+                                                            <div class="item-operation">
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    {/volist}
+                                                </div>
+                                                <div class="order-right">
+                                                    <li class="td td-amount">
+                                                        <div class="item-amount">
+                                                            合计：{$vo.price}
+                                                        </div>
+                                                    </li>
+                                                    <div class="move-right">
+                                                        <li class="td td-status">
+                                                            <div class="item-status">
+                                                                <p class="Mystatus">{$vo.order_status|getOrderStatus}</p>
+                                                                <p class="order-info"><a href="{:url('order/order_info',['id'=>$vo.id])}">订单详情</a></p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-change">
+                                                           	<a>
+                                                                {$vo.order_status|getOrderAction}
+                                                                <input class="vo-id" type="hidden" value="{$vo.id}">
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/if}
+                                        {/volist}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--底部-->
+            <div class="footer">
+                <div class="footer-hd">
+                    <p>
+                        <a href="#">商城首页</a>
+                        <b>|</b>
+                        <a href="#">支付宝</a>
+                        <b>|</b>
+                        <a href="#">物流</a>
+                    </p>
+                </div>
+                <div class="footer-bd">
+                    <p>
+                        <a href="#">合作伙伴</a>
+                        <a href="#">联系我们</a>
+                        <a href="#">网站地图</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {include file="public/user_nav"}
+    </div>
+    <script type="text/javascript">
+        var PARAM = {
+            'getgoods_url' : "{:url('order/getGoods')}",
+        };
+    </script>
+    <script type="text/javascript" src="__STATIC__index/main.js"></script>
+</body>
+
+</html>

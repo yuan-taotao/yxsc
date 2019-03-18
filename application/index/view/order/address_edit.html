@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 ,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>结算页面</title>
+    <link href="__STATIC__index/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__index/basic/css/demo.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__index/css/cartstyle.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__index/css/jsstyle.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__admin/lib/layui/css/layui.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__STATIC__index/js/address.js"></script>
+    <script src="__STATIC__admin/lib/layui/layui.js" charset="utf-8"></script>
+
+</head>
+
+<body>
+<div class="am-u-md-12">
+            <form class="am-form am-form-horizontal" id="order_address_update_form">
+                <input type="hidden" name="id" value="{$address.id}">
+                <div class="am-form-group">
+                    <label for="user-name" class="am-form-label">收货人</label>
+                    <div class="am-form-content">
+                        <input type="text" id="user-name" placeholder="收货人" name="linkman" value="{$address.linkman}">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="user-phone" class="am-form-label">手机号码</label>
+                    <div class="am-form-content">
+                        <input id="user-phone" placeholder="手机号必填" type="text" name="phone" value="{$address.phone}">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="user-phone" class="am-form-label">所在地</label>
+                    <div class="am-form-content address">
+                        <select data-am-selected name="province">
+                        	<option value="0">请选择</option>
+                        	{volist name="provinces" id="vo"}
+                            <option value="{$vo.area_id}" {if $address.province eq $vo.area_id}selected{/if}>{$vo.area_name}</option>
+                            {/volist}
+                        </select>
+                        <select data-am-selected name="city">
+                            {volist name="citys" id="vo"}
+                        	<option value="{$vo.area_id}" {if $address.city eq $vo.area_id}selected{/if}>{$vo.area_name}</option>
+                            {/volist}
+                        </select>
+                        <select data-am-selected name="area">
+                            {volist name="areas" id="vo"}
+                        	<option value="{$vo.area_id}" {if $address.area eq $vo.area_id}selected{/if}>{$vo.area_name}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="user-intro" class="am-form-label">详细地址</label>
+                    <div class="am-form-content">
+                        <textarea class="" rows="3" id="user-intro" placeholder="输入详细地址" name="addinfo">{$address.addinfo}</textarea>
+                        <small>100字以内写出你的详细地址...</small>
+                    </div>
+                </div>
+                <div class="am-form-group theme-poptit">
+                    <div class="am-u-sm-9 am-u-sm-push-3">
+                        <div class="am-btn am-btn-danger order_address_update">保存</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script type="text/javascript">
+            var PARAM = {
+                'getchilds_url' : "{:url('account/getchilds')}",
+                'order_address_update' : "{:url('order/address_update')}",
+
+            };
+        </script>
+            <script type="text/javascript" src="__STATIC__index/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+{include file="public/header"}
+<div class="x-body layui-anim layui-anim-up">
+        <form class="layui-form">
+          <div class="layui-form-item">
+              <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>分类名称
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="L_email" name="name" class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_username" class="layui-form-label">
+                  <span class="x-red">*</span>分类级别
+              </label>
+              <div class="layui-input-inline">
+                  <select name="pid">
+                  	<option value="0">一级分类</option>
+                  	{volist name="cates" id="vo"}
+                  	<option value="{$vo.id}">{$vo.name}</option>
+                  	{/volist}
+                  </select>
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+              </label>
+              <span class="layui-btn cate_add">
+                  增加
+              </span>
+          </div>
+      </form>
+    </div>
+
+
+{include file="public/footer"}

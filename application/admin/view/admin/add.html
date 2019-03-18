@@ -1,0 +1,54 @@
+{include file="public/header"}
+  <body>
+    <div class="x-body">
+        <form class="layui-form">
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+                  <span class="x-red">*</span>登录名
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" name="account" class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label"><span class="x-red">*</span>角色</label>
+              <div class="layui-input-block">
+                {volist name="roles" id="vo"}
+                <input type="checkbox" name="role[]" lay-skin="primary" title="{$vo.name}" value="{$vo.id}">
+                {/volist}
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+                  <span class="x-red">*</span>密码
+              </label>
+              <div class="layui-input-inline">
+                  <input type="password" name="password"class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+                  <span class="x-red">*</span>确认密码
+              </label>
+              <div class="layui-input-inline">
+                  <input type="password" name="repassword" class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+              </label>
+              <button  class="layui-btn admin_add" type="button">
+                  增加
+              </button>
+          </div>
+      </form>
+    </div>
+     <script type="text/javascript">
+        $(function(){
+            layui.use('form', function(){
+              var form = layui.form;
+              form.render();
+            });
+        });
+    </script>
+{include file="public/footer"}

@@ -1,0 +1,59 @@
+{include file="public/header"}
+  <body>
+    <div class="x-body">
+        <form class="layui-form layui-form-pane">
+                <input type="hidden" name="role_id" value="{$role.id}">
+                <div class="layui-form-item">
+                    <label for="name" class="layui-form-label">
+                        <span class="x-red">*</span>角色名
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="name" name="name" class="layui-input" value="{$role.name}">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">
+                        拥有权限
+                    </label>
+                    <table  class="layui-table layui-input-block">
+                        <tbody>
+                            {volist name="controllers" id="vo"}
+                            {if $vo neq 'base.php' && $vo neq 'index.php' && $vo neq 'login.php'}
+                            <tr>
+                                <td>
+                                    <div class="layui-input-block">
+                                        {volist name="auths" id="val"}
+                                        {if $val.controller.'.php' eq $vo}
+                                        <input name="id[]" type="checkbox" value="{$val.id}" title="{$val.name}" {if in_array($val.id,$authIds)}checked{/if}> 
+                                        {/if}
+                                        {/volist}
+                                    </div>
+                                </td>
+                            </tr>
+                            {/if}
+                            {/volist}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label for="desc" class="layui-form-label">
+                        描述
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入内容" id="desc" name="description" class="layui-textarea">{$role.description}</textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                <button class="layui-btn role_update" type="button">修改</button>
+              </div>
+            </form>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            layui.use('form', function(){
+              var form = layui.form;
+              form.render();
+            });
+        });
+    </script>
+    {include file="public/footer"}

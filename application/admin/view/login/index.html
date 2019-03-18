@@ -1,0 +1,23 @@
+{include file="public/header"}
+
+  <body class="login-bg">
+    
+    <div class="login layui-anim layui-anim-up">
+        <div class="message">BetterBoy管理员登录</div>
+        <div id="darkbannerwrap"></div>
+        
+        <form class="layui-form" >
+            <input name="account" placeholder="账号"  type="text" class="layui-input" >
+            <hr class="hr15">
+            <input name="password" placeholder="密码"  type="password" class="layui-input">
+            <hr class="hr15">
+            <button style="width:100%;" type="button" class="layui-btn admin_login">登录</button>
+            <hr class="hr20" >
+        </form>
+    </div>
+    <script type="text/javascript">
+      var PARAM = {
+        'index_url' : "{:url('index/index')}",
+      };
+    </script>
+{include file="public/footer"}

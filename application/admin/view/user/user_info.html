@@ -1,0 +1,59 @@
+{include file="public/header"}  
+  <body>
+    <div class="x-body">
+        <form class="layui-form">
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  头像
+              </label>
+              <div class="layui-input-inline">
+                  <img src="{$userinfo.pic}" style="height:80px">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  昵称
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" value="{$userinfo.nickname}" name="" class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  真实姓名
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" value="{$userinfo.realname}" name="" class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  性别
+              </label>
+              <div class="layui-input-inline">
+                <select>
+                  <option {if $userinfo.sex eq 1}selected{/if}>男</option>
+                  <option {if $userinfo.sex eq 2}selected{/if}>女</option>
+                  <option {if $userinfo.sex eq 0}selected{/if}>保密</option>
+                </select>
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  生日
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" value="{$userinfo.birthday}" name="" class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  个性签名
+              </label>
+              <div class="layui-input-inline">
+                  <textarea class="layui-text" rows="3" cols="30">{$userinfo.desc}</textarea>
+              </div>
+          </div>
+      </form>
+    </div>
+{include file="public/footer"}

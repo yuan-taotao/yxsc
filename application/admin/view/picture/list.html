@@ -1,0 +1,78 @@
+{include file="public/header"}
+ <body>
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">图片</a>
+        <a>
+          <cite>列表</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" action="{:url('picture/list')}" method="post">
+          <input class="layui-input" placeholder="开始日" name="start_time" id="start_time" value="{$start_time}">
+          <input class="layui-input" placeholder="截止日" name="end_time" id="end_time" value="{$end_time}">
+          <input type="text" name="name"  placeholder="请输入名称" autocomplete="off" class="layui-input" value="{$name}">
+          <button type="submit" class="layui-btn"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+      </div>
+      <xblock>
+        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+        <span class="x-right" style="line-height:40px">共有数据：{$count} 条</span>
+      </xblock>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th>
+              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>ID</th>
+            <th>名称</th>
+            <th>图片类型</th>
+            <th>缩略图(点击显示大图)</th>
+            <th>添加时间</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+        	{volist name="pics" id="vo"}
+          <tr>
+            <td>
+              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$vo.id}'><i class="layui-icon">&#xe605;</i></div>
+            </td>
+            <td>{$vo.id}</td>
+            <td>{$vo.name}</td>
+            <td>{$vo.type|pic_type}</td>
+            <td><img src="{$vo.pic_path}" width="50" height="50" class="pic_show" data-path="{$vo.pic_path}"></td>
+            <td>{$vo.create_time}</td>
+            <td class="td-manage">
+              <a title="删除" onclick="member_del('{:url('picture/delete')}',{$vo.id})" href="javascript:;">
+                <i class="layui-icon">&#xe640;</i>
+              </a>
+            </td>
+          </tr>
+          {/volist}
+        </tbody>
+      </table>
+      <div class="page">
+      	{$pics->render()}
+      </div>
+
+    </div>
+    <script type="text/javascript">
+      layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#start_time' //指定元素
+        });
+        laydate.render({
+          elem: '#end_time' //指定元素
+        });
+      });
+    </script>
+
+{include file="public/footer"}

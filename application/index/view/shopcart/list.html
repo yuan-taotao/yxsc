@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>购物车页面</title>
+    <link href="__STATIC__index/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__index/basic/css/demo.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__index/css/cartstyle.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__index/css/optstyle.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__STATIC__index/js/jquery.js"></script>
+    <script src="__STATIC__admin/lib/layui/layui.js" charset="utf-8"></script>
+
+</head>
+
+<body>
+    {include file="public/header"}
+    <!--购物车 -->
+    <div class="concent">
+        <div id="cartTable">
+            <div class="cart-table-th">
+                <div class="wp">
+                    <div class="th th-chk">
+                        <div id="J_SelectAll1" class="select-all J_SelectAll">
+                        </div>
+                    </div>
+                    <div class="th th-item">
+                        <div class="td-inner">商品信息</div>
+                    </div>
+                    <div class="th th-price">
+                        <div class="td-inner">单价</div>
+                    </div>
+                    <div class="th th-amount">
+                        <div class="td-inner">数量</div>
+                    </div>
+                    <div class="th th-sum">
+                        <div class="td-inner">金额</div>
+                    </div>
+                    <div class="th th-op">
+                        <div class="td-inner">操作</div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <tr class="item-list">
+                <div class="bundle  bundle-last ">
+                    <div class="bundle-hd">
+                        <div class="bd-promos">
+                            <div class="bd-has-promo">已享优惠:<span class="bd-has-promo-content">省￥19.50</span>&nbsp;&nbsp;</div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="bundle-main">
+                        {if $goods}
+                    	{volist name="goods" id="vo"}
+                        <ul class="item-content clearfix">
+                            <li class="td td-chk">
+                                <div class="cart-checkbox ">
+                                    <input class="check single-check" id="J_CheckBox_170037950254" name="items[]" value="{$key}" type="checkbox" check-id="{$key}" goods-id="{$vo.goods.id}" checked>
+                                    <label for="J_CheckBox_170037950254"></label>
+                                </div>
+                            </li>
+                            <li class="td td-item">
+                                <div class="item-pic">
+                                    <a href="{:url('goods/show',['id'=>$vo.goods.id])}" target="_blank" data-title="{$vo.goods.name}" class="J_MakePoint" data-point="tbcart.8.12">
+												<img src="{$vo.goods.id|showPrePic}" class="itempic J_ItemImg" style="width:80px;height:80px"></a>
+                                </div>
+                                <div class="item-info">
+                                    <div class="item-basic-info">
+                                        <a href="{:url('goods/show',['id'=>$vo.goods.id])}" target="_blank" title="{$vo.goods.name}" class="item-title J_MakePoint" data-point="tbcart.8.11">{$vo.goods.name}</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="td td-info">
+                                <div class="item-props item-props-can">
+                                    <span class="sku-line">颜色：12#川南玛瑙</span>
+                                    <span class="sku-line">包装：裸装</span>
+                                </div>
+                            </li>
+                            <li class="td td-price">
+                                <div class="item-price price-promo-promo">
+                                    <div class="price-content">
+                                        <div class="price-line">
+                                            <em class="price-original">{$vo.goods.origin_price}</em>
+                                        </div>
+                                        <div class="price-line">
+                                            <em class="J_Price price-now" current-id="{$key}" tabindex="0">{$vo.goods.current_price}</em>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="td td-amount">
+                                <div class="amount-wrapper ">
+                                    <div class="item-amount ">
+                                        <div class="sl">
+                                            <input class="min am-btn count_mins" name="" type="button" value="-" data-id="{$key}"/>
+                                            <input class="text" name="" type="text" value="{$vo.count}" style="width:30px;" count-id="{$key}" readonly/>
+                                            <input class="add am-btn count_plus" name="" type="button" value="+" data-id="{$key}"/>
+                                        </div>
+                                        库存：<span>{$vo.goods.store}</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="td td-sum">
+                                <div class="td-inner price-small">
+                                    <em tabindex="0" class="J_ItemSum number sprice" price-id="{$key}">{$vo.price}</em>
+                                </div>
+                            </li>
+                            <li class="td td-op">
+                                <div class="td-inner">
+                                    <a title="移入收藏夹" class="btn-fav single-collect" data-id="{$key}">移入收藏夹</a>
+                                    <a data-point-url="#" class="delete single-delete" data-id="{$key}">删除</a>
+                                </div>
+                            </li>
+                        </ul>
+                        {/volist}
+                        {else /}
+                        购物车未添加任何商品,<a href="{:url('goods/list')}" style="color:red;">点击前往购物吧</a>
+                        {/if}
+                    </div>
+                </div>
+            </tr>
+        </div>
+        <div class="clear"></div>
+        <div class="float-bar-wrapper">
+            <div id="J_SelectAll2" class="select-all J_SelectAll">
+                <div class="cart-checkbox">
+                    <input class="check-all check" id="J_SelectAllCbx2" name="select-all" value="true" type="checkbox" checked>
+                    <label for="J_SelectAllCbx2"></label>
+                </div>
+                <span>全选</span>
+            </div>
+            <div class="operations">
+                <a hidefocus="true" class="deleteAll all-delete">删除</a>
+                <a hidefocus="true" class="J_BatchFav all-collect">移入收藏夹</a>
+            </div>
+            <div class="float-bar-right">
+                <div class="price-sum">
+                    <span class="txt">合计:</span>
+                    <strong class="price">¥<em id="J_Total" class="total-price">{$total_price}</em></strong>
+                </div>
+                <div class="btn-area">
+                    <a id="J_Go" class="submit-btn submit-btn-disabled mkorder"><span>结&nbsp;算</span></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-hd">
+                <p>
+                    <a href="#">商城首页</a>
+                    <b>|</b>
+                    <a href="#">支付宝</a>
+                    <b>|</b>
+                    <a href="#">物流</a>
+                </p>
+            </div>
+            <div class="footer-bd">
+                <p>
+                    <a href="#">合作伙伴</a>
+                    <a href="#">联系我们</a>
+                    <a href="#">网站地图</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var PARAM = {
+            'collect_url' : "{:url('shopcart/collect')}",
+            'delete_url' : "{:url('shopcart/delete')}",
+            'all_delete_url' : "{:url('shopcart/delete_all')}",
+            'all_collect_url' : "{:url('shopcart/collect_all')}",
+            'cartToOrder_url' : "{:url('shopcart/cartToOrder')}",
+            'mkorder_url' : "{:url('order/mkorder')}",
+            'login_url' : "{:url('login/index')}",
+        };
+    </script>
+	<script type="text/javascript" src="__STATIC__index/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+{include file="public/header"}
+  <body class="layui-anim layui-anim-up">
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">会员</a>
+        <a>
+          <cite>列表</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" action="{:url('user/index')}" method="get">
+          <input class="layui-input" placeholder="昵称" name="nickname" value="{if $data}{if isset($data.nickname)}{$data.nickname}{/if}{/if}">
+          <input class="layui-input" placeholder="邮箱" name="email" value="{if $data}{if isset($data.email)}{$data.email}{/if}{/if}">
+          <input type="text" name="phone"  placeholder="手机" class="layui-input" value="{if $data}{if isset($data.phone)}{$data.phone}{/if}{/if}">
+          <label>所有会员 <input type="radio" name="user_level" value="-1" {if $data}{if isset($data.user_level)}{if $data.user_level eq -1}checked{/if}{/if}{/if}></label>
+          <label>普通会员 <input type="radio" name="user_level" value="0" {if $data}{if isset($data.user_level)}{if $data.user_level eq 0}checked{/if}{/if}{/if}></label>
+          <label>高级会员 <input type="radio" name="user_level" value="1" {if $data}{if isset($data.user_level)}{if $data.user_level eq 1}checked{/if}{/if}{/if}></label>
+          <label>铂金会员 <input type="radio" name="user_level" value="2" {if $data}{if isset($data.user_level)}{if $data.user_level eq 2}checked{/if}{/if}{/if}></label>
+          <label>钻石会员 <input type="radio" name="user_level" value="3" {if $data}{if isset($data.user_level)}{if $data.user_level eq 3}checked{/if}{/if}{/if}></label>
+          <button class="layui-btn" type="submit"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+      </div>
+      <xblock>
+        <button class="layui-btn layui-btn-danger all_ban"><i class="layui-icon"></i>批量禁用</button>
+        <span class="x-right" style="line-height:40px">共有数据:{:count($users)}条</span>
+      </xblock>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th>
+              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>ID</th>
+            <th>昵称</th>
+            <th>头像</th>
+            <th>邮箱</th>
+            <th>手机</th>
+            <th>等级</th>
+            <th>积分</th>
+            <th>消费</th>
+            <th>注册时间</th>
+            <th>状态</th>
+            <th>操作</th></tr>
+        </thead>
+        <tbody>
+          {volist name="users" id="vo"}
+          <tr>
+            <td>
+              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='{$vo.id}'><i class="layui-icon">&#xe605;</i></div>
+            </td>
+            <td>{$vo.id}</td>
+            <td>{$vo.id|getUserName}</td>
+            <td><img src="{$vo.id|getUserPic}" style="height:40px;"></td>
+            <td>{$vo.email}</td>
+            <td>{$vo.phone}</td>
+            <td>{$vo.user_level|getUserLevelName}</td>
+            <td>{$vo.user_points}</td>
+            <td>{$vo.user_spending}</td>
+            <td>{$vo.create_time}</td>
+            <td class="td-status"><a href="{:url('user/status',['id'=>$vo.id,'status'=>$vo.status==1?0:1])}" title="点击修改状态">{$vo.status|status}</td>
+            <td class="td-manage">
+              <a title="详细信息"  onclick="x_admin_show('详细信息','{:url('user/user_info',['uid'=>$vo.id])}',800,500)" href="javascript:;">
+                <i class="layui-icon">&#xe642;</i>
+              </a>
+            </td>
+          </tr>
+          {/volist}
+        </tbody>
+      </table>
+      <div class="page">
+        {$users->appends($params)->render()}
+      </div>
+
+    </div>
+{include file="public/footer"}
